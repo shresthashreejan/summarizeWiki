@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import shutil
+import os
 
 from unstructured.ingest.connector.wikipedia import SimpleWikipediaConfig
 from unstructured.ingest.interfaces import PartitionConfig, ProcessorConfig, ReadConfig
@@ -10,7 +11,7 @@ from langchain.chains import LLMChain
 from langchain.llms import GPT4All
 from langchain.prompts import PromptTemplate
 
-def fetch_wikipedia_data(page_title):
+def fetch_wikipedia_data(page_title, selected_model):
     with st.spinner('Fetching data...'):
         runner = WikipediaRunner(
             processor_config=ProcessorConfig(
@@ -41,7 +42,8 @@ def fetch_wikipedia_data(page_title):
     with st.spinner('Loading model...'):
         template = """Summarize the following text: {concatenated_text} Answer: """
         prompt = PromptTemplate(template=template, input_variables=["concatenated_text"])
-        llm = GPT4All(model="mistral-7b-openorca.Q4_0.gguf", device='gpu', verbose=True)
+        model_path = f"./model/{selected_model}"
+        llm = GPT4All(model=model_path, device='gpu', verbose=True)
         llm_chain = LLMChain(prompt=prompt, llm=llm)
         output = llm_chain.run(concatenated_text)
 
@@ -52,9 +54,14 @@ def main():
     st.title("Summarize Wiki")
     page_title = st.text_input("Enter the Wikipedia page title:")
 
+    model_folder_path = './model'
+    model_files = os.listdir(model_folder_path)
+    selected_model = st.selectbox("Select a model", model_files)
+    st.write("You are using", selected_model)
+
     if st.button("Summarize"):
         if page_title:
-            summary = fetch_wikipedia_data(page_title)
+            summary = fetch_wikipedia_data(page_title, selected_model)
             st.toast('Success!')
             st.header(page_title)
             st.markdown(summary)
