@@ -52,11 +52,11 @@ def fetch_wikipedia_data(page_title, selected_model):
 def main():
     st.set_page_config(page_title="Summarize Wiki")
     st.title("Summarize Wiki")
-    page_title = st.text_input("Enter the Wikipedia page title:")
+    page_title = st.text_input("Enter Wikipedia page title")
 
     model_folder_path = './model'
     model_files = os.listdir(model_folder_path)
-    selected_model = st.selectbox("Select a model", model_files)
+    selected_model = st.selectbox("Select model", model_files)
     st.write("You are using", selected_model)
 
     if st.button("Summarize"):
