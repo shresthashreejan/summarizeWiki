@@ -48,7 +48,7 @@ This Python application utilizes Streamlit to create an interactive web-based to
 
 ## Setup Models
 
-Visit the [GPT4All page](https://gpt4all.io/index.html) and download required models. Extract downloaded models into `model` directory in the project root.
+Visit [GPT4All](https://gpt4all.io/index.html) and download required models. Extract downloaded models into `model` directory in the project root.
 
 ## Run the Application
 
