@@ -1,7 +1,5 @@
 # Summarize Wiki
 
-## Introduction
-
 This Python application utilizes Streamlit to create an interactive web-based tool for summarizing Wikipedia articles. The application fetches data from Wikipedia using the unstructured library and then utilizes open source models to generate a summary of the provided Wikipedia page.
 
 ![image](https://github.com/shresthashreejan/summarizeWiki/assets/79634187/3e3b86df-e76b-4f60-b4ac-4ed50f1cac70)
