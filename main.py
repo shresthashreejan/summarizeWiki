@@ -55,7 +55,7 @@ def main():
     page_title = st.text_input("Enter Wikipedia page title")
 
     model_folder_path = './model'
-    model_files = os.listdir(model_folder_path)
+    model_files = [file for file in os.listdir(model_folder_path) if file != '.gitkeep']
     selected_model = st.selectbox("Select model", model_files)
     st.write("You are using", selected_model)
 
